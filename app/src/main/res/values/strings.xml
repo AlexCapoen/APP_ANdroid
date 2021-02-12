@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">APP</string>
     <string name="name">Name</string>
+    <string name="submit">submit</string>
+
+    <string-array name="sexe">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
 </resources>
