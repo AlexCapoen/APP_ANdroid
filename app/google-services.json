@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "111394611330",
+    "project_id": "couros-59558",
+    "storage_bucket": "couros-59558.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:111394611330:android:92a6a0f6eef8021e7dd49b",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "111394611330-89gp31e92v6s930oibbf4r55f6pf52lc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.app",
+            "certificate_hash": "a7936c848c6794553c43e8bde2abc7d3ef961e39"
+          }
+        },
+        {
+          "client_id": "111394611330-87q3qigngdpes1m70cn59h7ack5cajqn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQv8US8E6hTJAETMLL9S5_ANUwMaLvz3o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "111394611330-87q3qigngdpes1m70cn59h7ack5cajqn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
