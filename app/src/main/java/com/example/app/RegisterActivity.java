@@ -1,5 +1,6 @@
 package com.example.app;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,8 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class RegisterActivity extends AppCompatActivity {
 
     public EditText emailId, password;
-    Button submitButton;
-    TextView tvSignIn;
+    Button nextButton;
     FirebaseAuth mFirebaseAuth;
 
     @Override
@@ -31,11 +31,11 @@ public class RegisterActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         emailId = findViewById(R.id.registerEmail);
         password = findViewById(R.id.registerPassword1);
-        submitButton = findViewById(R.id.submitButton);
-        tvSignIn = findViewById(R.id.loginTextView);
+        nextButton = findViewById(R.id.nextButton);
 
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ShowToast")
             @Override
             public void onClick(View v) {
                 String email = emailId.getText().toString();
@@ -46,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
                     emailId.requestFocus();
                 }
                 else if(pwd.isEmpty()){
-                    password.setError("Please enter your PassWord");
+                    password.setError("Please enter your Password");
                     password.requestFocus();
                 }
                 else if(email.isEmpty() && pwd.isEmpty()){
@@ -70,17 +70,10 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-        tvSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-
     }
+
+
+
+
+
 }
