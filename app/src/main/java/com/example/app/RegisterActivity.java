@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    public EditText emailId, password;
+    public EditText emailId, password, password2;
     Button nextButton;
     FirebaseAuth mFirebaseAuth;
 
@@ -31,6 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         emailId = findViewById(R.id.registerEmail);
         password = findViewById(R.id.registerPassword1);
+        password2 = findViewById(R.id.registerPassword2);
         nextButton = findViewById(R.id.nextButton);
 
 
@@ -40,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = emailId.getText().toString();
                 String pwd = password.getText().toString();
+                String pwd2 = password2.getText().toString();
 
                 if(email.isEmpty()){
                     emailId.setError("Please enter email");
@@ -53,17 +55,22 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this,"Fields are empty !",Toast.LENGTH_SHORT);
                 }
                 else if(!(email.isEmpty() && pwd.isEmpty())){
-                    mFirebaseAuth.createUserWithEmailAndPassword(email,pwd).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(!task.isSuccessful()){
-                                Toast.makeText(RegisterActivity.this,"Sign In Unsuccessful ",Toast.LENGTH_SHORT);
+                    if(pwd == pwd2){
+                        mFirebaseAuth.createUserWithEmailAndPassword(email,pwd).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if(!task.isSuccessful()){
+                                    Toast.makeText(RegisterActivity.this,"Sign In Unsuccessful ",Toast.LENGTH_SHORT);
+                                }
+                                else {
+                                    startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+                                }
                             }
-                            else {
-                                startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
-                            }
-                        }
-                    });
+                        });
+                    }
+                    else{
+                        Toast.makeText(RegisterActivity.this,"Mots de passe non identiques",Toast.LENGTH_SHORT);
+                    }
                 }
                 else{
                     Toast.makeText(RegisterActivity.this,"Error",Toast.LENGTH_SHORT);
