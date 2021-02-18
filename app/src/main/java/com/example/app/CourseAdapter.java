@@ -1,6 +1,7 @@
 package com.example.app;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -30,4 +31,12 @@ public abstract class CourseAdapter extends
 
         }
     }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_par_course, parent, false);
+        return new ViewHolder(view);
+    }
+
 }
