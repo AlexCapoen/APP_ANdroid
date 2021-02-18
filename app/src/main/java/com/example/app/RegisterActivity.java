@@ -3,6 +3,7 @@ package com.example.app;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this,"Fields are empty !",Toast.LENGTH_SHORT);
                 }
                 else if(!(email.isEmpty() && pwd.isEmpty())){
-                    if(pwd == pwd2){
+                    if(pwd.equals(pwd2)){
                         mFirebaseAuth.createUserWithEmailAndPassword(email,pwd).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -63,6 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     Toast.makeText(RegisterActivity.this,"Sign In Unsuccessful ",Toast.LENGTH_SHORT);
                                 }
                                 else {
+                                    Log.d("nonnnnnnnn","nonnnnnnn");
                                     startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
                                 }
                             }
