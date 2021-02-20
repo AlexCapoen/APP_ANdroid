@@ -9,31 +9,30 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
-
+public class ProfilActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_profile);
 
 
         //Initialisation et assignation des variables
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
 
         //Set home selected
-        bottomNavigationView.setSelectedItemId(R.id.course);
+        bottomNavigationView.setSelectedItemId(R.id.profil);
 
         //perform itemSelected
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.profil:
-                        startActivity(new Intent(getApplicationContext(),ProfilActivity.class));
+                    case R.id.course:
+                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.course:
+                    case R.id.profil:
                         return true;
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext(),HomeActivity.class));
