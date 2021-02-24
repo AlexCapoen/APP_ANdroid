@@ -1,6 +1,9 @@
 package com.example.app;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,8 +26,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.register_part_1);
+        setContentView(R.layout.activity_register);
 
 
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -76,18 +77,18 @@ public class RegisterActivity extends AppCompatActivity {
                 String birthDate = mBirthDate.getText().toString();
                 String gender = mGender.getSelectedItem().toString();
 
-                int weight;
+                String weight;
                 if (mWeight.getText().toString().isEmpty()) {
-                    weight = 0;
+                    weight = null;
                 } else {
-                    weight = Integer.valueOf(mWeight.getText().toString());
+                    weight = mWeight.getText().toString();
                 }
 
-                int height;
+                String height;
                 if (mHeight.getText().toString().isEmpty()) {
-                    height = 0;
+                    height = null;
                 } else {
-                    height = Integer.valueOf(mHeight.getText().toString());
+                    height = mHeight.getText().toString();
                 }
 
 
@@ -115,7 +116,7 @@ public class RegisterActivity extends AppCompatActivity {
                     mFirstName.requestFocus();
                 }
 
-                else if (weight == 0) {
+                else if (weight == null) {
                     mWeight.setError("Veuillez entrer un poids");
                     mWeight.requestFocus();
                 }
@@ -128,14 +129,14 @@ public class RegisterActivity extends AppCompatActivity {
                     mBirthDate.setError("Veuillez rentrer une date au format jj/mm/aaaa");
                     mBirthDate.requestFocus();
                 }
-                else if (height == 0) {
+                else if (height == null) {
                     mHeight.setError("Veuillez entrer une taille");
                     mHeight.requestFocus();
                 }
                 else if (email.isEmpty() && pwd.isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "Les champs sont vides", Toast.LENGTH_SHORT);
                 }
-                 else if (!(isFieldEmpty(email, pwd, pwd2, name, firstName, birthDate, gender, height, weight))) {
+                else if (!(isFieldEmpty(email, pwd, pwd2, name, firstName, birthDate, gender, height, weight))) {
 
                     if (pwd.equals(pwd2)) {
                         mFirebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
@@ -158,9 +159,11 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
 
-    private void storeNewUsersData(String email, String pwd, String name, String firstName, String birthDate, String gender, int height, int weight) {
+    private void storeNewUsersData(String email, String pwd, String name, String firstName, String birthDate, String gender, String height, String weight) {
         userID = mFirebaseAuth.getCurrentUser().getUid();
         DocumentReference documentReference = fStore.collection("Users").document(userID);
 
@@ -190,6 +193,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
+
+
     public boolean isValidDate(String inDate) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateFormat.setLenient(false);
@@ -201,8 +206,8 @@ public class RegisterActivity extends AppCompatActivity {
         return true;
     }
 
-    public boolean isFieldEmpty(String email, String pwd, String pwd2, String name, String firstName, String birthDate, String gender, int weight, int height) {
-        if (email.isEmpty() || pwd.isEmpty() || pwd2.isEmpty() || name.isEmpty() || firstName.isEmpty() || birthDate.isEmpty() || gender.isEmpty() || weight == 0 || height == 0) {
+    public boolean isFieldEmpty(String email, String pwd, String pwd2, String name, String firstName, String birthDate, String gender, String weight, String height) {
+        if (email.isEmpty() || pwd.isEmpty() || pwd2.isEmpty() || name.isEmpty() || firstName.isEmpty() || birthDate.isEmpty() || gender.isEmpty() || weight == null || height == null) {
             return true;
         } else {
             return false;
