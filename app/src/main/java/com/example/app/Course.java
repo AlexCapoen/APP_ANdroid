@@ -4,16 +4,17 @@ public class Course {
 
     private boolean objectifAtteint;
     private int tempsDeCourse, calorieBurlee;
+    private String tvTempsCourse, tvCalorieBrulee, tvObjectifAttein;
 
+    public String getTvObjectifAttein() {
+        return tvObjectifAttein; }
 
-    public Course(boolean objectifAtteint, int tempsDeCourse, int calorieBurlee) {
-        this.objectifAtteint = objectifAtteint;
-        this.tempsDeCourse = tempsDeCourse;
-        this.calorieBurlee = calorieBurlee;
+    public String gettVtempsCourse() {
+        return tvTempsCourse;
     }
 
-    public boolean isObjectifAtteint() {
-        return objectifAtteint;
+    public String getTvCalorieBrulee() {
+        return tvCalorieBrulee;
     }
 
     public int getTempsDeCourse() {
@@ -24,15 +25,16 @@ public class Course {
         return calorieBurlee;
     }
 
-    public void setObjectifAtteint(boolean objectifAtteint) {
+    public boolean isObjectifAtteint() {
+        return objectifAtteint;
+    }
+
+    public Course(boolean objectifAtteint, int tempsDeCourse, int calorieBurlee, String tvTempsCourse, String tvCalorieBrulee, String tvObjectifAttein) {
         this.objectifAtteint = objectifAtteint;
-    }
-
-    public void setTempsDeCourse(int tempsDeCourse) {
         this.tempsDeCourse = tempsDeCourse;
-    }
-
-    public void setCalorieBurlee(int calorieBurlee) {
         this.calorieBurlee = calorieBurlee;
+        this.tvTempsCourse = tvTempsCourse;
+        this.tvCalorieBrulee = tvCalorieBrulee;
+        this.tvObjectifAttein = tvObjectifAttein;
     }
 }

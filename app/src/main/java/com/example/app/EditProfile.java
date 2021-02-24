@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -120,6 +122,32 @@ public class EditProfile extends AppCompatActivity {
         profileEditGender.setText(gender);
         profileEditHeight.setText(height);
         profileEditWeight.setText(weight);
+
+        //Initialisation et assignation des variables
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+
+        //Set home selected
+        bottomNavigationView.setSelectedItemId(R.id.profil);
+
+        //perform itemSelected
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.course:
+                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.profil:
+                        return true;
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
 
 
 

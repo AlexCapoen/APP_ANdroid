@@ -3,21 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout"
+    android:layout_margin="16dp"
+    android:padding="16dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/backgroung">
 
+
     <TextView
         android:id="@+id/objectifAtteintTV"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="16dp"
         android:text="Objectif Atteint :"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/tempsCourseTV"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,11 +28,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="32dp"
         android:text="Temps de Course :"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/calorieTV"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/objectifAtteintTV" />
 
     <TextView
         android:id="@+id/calorieTV"
@@ -39,33 +40,36 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
+        android:layout_marginBottom="8dp"
         android:text="Calories Brulées :"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="137dp" />
+        tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/tempsCourseNb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_width="161dp"
+        android:layout_height="38dp"
         android:ems="10"
         android:inputType="number"
+        android:text="14 min"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/calorieNB"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/objectifAtteintCheckBox" />
 
     <EditText
         android:id="@+id/calorieNB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_width="161dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
         android:ems="10"
         android:inputType="number"
+        android:text="550 kcal"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tempsCourseNb" />
 
@@ -73,7 +77,7 @@
         android:id="@+id/objectifAtteintCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="100dp"
         android:layout_marginRight="100dp"
         android:text="CheckBox"
