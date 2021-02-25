@@ -4,9 +4,12 @@
     <string name="submit">submit</string>
 
     <string-array name="sexe">
-        <item android:textColor="@color/white">Male</item>
-        <item android:textColor="@color/white">Female</item>
+        <item android:textColor="@color/white">Homme</item>
+        <item android:textColor="@color/white">Femme</item>
     </string-array>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="access_token">sk.eyJ1IjoiY291cm9zIiwiYSI6ImNrbGpiMXlzMjA1OWwyb3A1dTY5ZHEwbGkifQ.yWuyZzvAu11yHSegbBQ5sA</string>
+    <string name="d_marrer_une_course">Démarrer une course</string>
+
 
 </resources>

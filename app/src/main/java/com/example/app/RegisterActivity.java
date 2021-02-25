@@ -1,11 +1,15 @@
 package com.example.app;
 
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,6 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
     String userID;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,7 +176,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         Map<String, Object> user = new HashMap<>();
         user.put("e-mail", email);
-        user.put("Mot de passe", pwd);
+        user.put("Mot de passe", pwd.hashCode());
         user.put("Nom", name);
         user.put("Prénom", firstName);
         user.put("Date de Naissance", birthDate);
@@ -215,5 +221,6 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     }
+
 }
 

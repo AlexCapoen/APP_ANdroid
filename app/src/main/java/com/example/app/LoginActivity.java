@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     public EditText emailId, password;
     Button signInButton;
     TextView tvRegister;
-    FirebaseAuth mFirebaseAuth;
+    FirebaseAuth fAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     @Override
@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mFirebaseAuth = FirebaseAuth.getInstance();
+        fAuth = FirebaseAuth.getInstance();
         emailId = findViewById(R.id.signInEmail);
         password = findViewById(R.id.signInPassword);
         signInButton = findViewById(R.id.signInButton);
@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
+                FirebaseUser mFirebaseUser = fAuth.getCurrentUser();
                 if(mFirebaseUser != null){
                     Toast.makeText(LoginActivity.this,"You are logged in",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this,"Fields are empty !",Toast.LENGTH_SHORT);
                 }
                 else if(!(email.isEmpty() && pwd.isEmpty())){
-                    mFirebaseAuth.signInWithEmailAndPassword(email,pwd).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    fAuth.signInWithEmailAndPassword(email,pwd).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(!task.isSuccessful()){
@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
+        fAuth.addAuthStateListener(mAuthStateListener);
     }
 
 

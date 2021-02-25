@@ -17,6 +17,7 @@ public class Algo {
         float metObj;
         float coef;
 
+        //calcul du métabolisme en fonction des genres
         switch (gender){
             case "Male":
                 met = (float) ((13.7516 * weight) + (500.33 * height/100) - (6.7550 * age + 66.473));
@@ -58,5 +59,9 @@ public class Algo {
         met = met * coef;
         metObj = metObj * coef;
         return (int) abs(met-metObj);
+    }
+
+    public int timeToRun(int distance){ // en km
+        return (int) (distance/10.5);
     }
 }

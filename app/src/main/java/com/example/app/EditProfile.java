@@ -45,6 +45,8 @@ public class EditProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+        //Récupération des données de ProfileActivity
+
         Intent data = getIntent();
         String firstName = data.getStringExtra("Prénom");
         String name = data.getStringExtra("Nom");
@@ -80,6 +82,8 @@ public class EditProfile extends AppCompatActivity {
                 }
 
                 String email = profileEditEmail.getText().toString();
+
+                //fonction permettant de modifier des informations dans la base de données
                 user.updateEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

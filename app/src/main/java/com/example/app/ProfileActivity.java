@@ -38,7 +38,7 @@ public class ProfileActivity extends AppCompatActivity {
     FirebaseFirestore fStore;
     String userId;
     ImageView profilePicture,changePictureButton;
-    Button changeProfileButton;
+    Button changeProfileButton,logOutButton;
     StorageReference storageReference;
 
     @Override
@@ -46,12 +46,13 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        storageReference = FirebaseStorage.getInstance().getReference();
 
-        //Initialisation et assignation des variables
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        userId = fAuth.getCurrentUser().getUid();
 
-        //Set home selected
-        bottomNavigationView.setSelectedItemId(R.id.profil);
+        setToolBar();
 
 
         firstName = findViewById(R.id.profileFirstName);
@@ -65,9 +66,6 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-        fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
-        storageReference = FirebaseStorage.getInstance().getReference();
 
         StorageReference profileRef = storageReference.child("users/"+fAuth.getCurrentUser().getUid()+"/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -80,25 +78,71 @@ public class ProfileActivity extends AppCompatActivity {
         profilePicture = findViewById(R.id.profilePicture);
         changePictureButton = findViewById(R.id.changePictureButton);
         changeProfileButton = findViewById(R.id.changeProfileButton);
+        logOutButton = findViewById(R.id.logOutButton);
 
 
-        userId = fAuth.getCurrentUser().getUid();
 
+        changePictureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //open gallery
+                Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(openGalleryIntent,1000);
+            }
+        });
+
+        loadData(userId);
+
+        changeProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), EditProfile.class);
+                i.putExtra("e-mail",email.getText().toString());
+                i.putExtra("Prénom",firstName.getText().toString());
+                i.putExtra("Nom",name.getText().toString());
+                i.putExtra("Mot de passe",password.getText().toString());
+                i.putExtra("Date de Naissance",birthDate.getText().toString());
+                i.putExtra("Genre",gender.getText().toString());
+                i.putExtra("Taille", height.getText().toString());
+                i.putExtra("Poids",weight.getText().toString());
+
+                startActivity(i);
+            }
+        });
+
+        logOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intToLogOut = new Intent(ProfileActivity.this, LogoutActivity.class);
+                startActivity(intToLogOut);
+            }
+        });
+
+    }
+
+    public void loadData(String userId){
         DocumentReference documentReference = fStore.collection("Users").document(userId);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-                        firstName.setText(documentSnapshot.getString("Prénom"));
-                        name.setText(documentSnapshot.getString("Nom"));
-                        email.setText(documentSnapshot.getString("e-mail"));
-                        birthDate.setText(documentSnapshot.getString("Date de Naissance"));
-                        gender.setText(documentSnapshot.getString("Genre"));
-                        height.setText(documentSnapshot.getString("Taille")+" cm");
-                        weight.setText(documentSnapshot.getString("Poids")+" kg");
-                    }
-                });
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
+                firstName.setText(documentSnapshot.getString("Prénom"));
+                name.setText(documentSnapshot.getString("Nom"));
+                email.setText(documentSnapshot.getString("e-mail"));
+                birthDate.setText(documentSnapshot.getString("Date de Naissance"));
+                gender.setText(documentSnapshot.getString("Genre"));
+                height.setText(documentSnapshot.getString("Taille"));
+                weight.setText(documentSnapshot.getString("Poids"));
+            }
+        });
 
+    }
 
+    public void setToolBar(){
+        //Initialisation et assignation des variables
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+
+        //Set home selected
+        bottomNavigationView.setSelectedItemId(R.id.profil);
 
         //perform itemSelected
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -117,34 +161,6 @@ public class ProfileActivity extends AppCompatActivity {
                         return true;
                 }
                 return false;
-            }
-        });
-
-        changePictureButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //open gallery
-
-                Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(openGalleryIntent,1000);
-            }
-        });
-
-
-        changeProfileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), EditProfile.class);
-                i.putExtra("e-mail",email.getText().toString());
-                i.putExtra("Prénom",firstName.getText().toString());
-                i.putExtra("Nom",name.getText().toString());
-                i.putExtra("Mot de passe",password.getText().toString());
-                i.putExtra("Date de Naissance",birthDate.getText().toString());
-                i.putExtra("Genre",gender.getText().toString());
-                i.putExtra("Taille", height.getText().toString());
-                i.putExtra("Poids",weight.getText().toString());
-
-                startActivity(i);
             }
         });
 

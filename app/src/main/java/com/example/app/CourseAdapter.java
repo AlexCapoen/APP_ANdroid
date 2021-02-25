@@ -13,6 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+
+
+
+
+/*
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder>{
 
     private Context context;
@@ -67,5 +72,68 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         return listCourses.size();
     }
 
+
+}
+
+ */
+
+public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder>{
+
+    private Context context;
+    private List<StructureItem> listCourses;
+    private  RecyclerViewClickListener listener;
+
+
+    public CourseAdapter(Context context, List<StructureItem> listCourses, RecyclerViewClickListener listener) {
+        this.context = context;
+        this.listCourses = listCourses;
+        this.listener = listener;
+    }
+
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.liste_courses, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        StructureItem listCourse = listCourses.get(position);
+        holder.textViewHead.setText(listCourse.getHead());
+        holder.textViewDesc.setText(listCourse.getDesc());
+    }
+
+    @Override
+    public int getItemCount() {
+        return listCourses.size();
+    }
+
+    public interface RecyclerViewClickListener{
+        void onClick(View v, int position);
+    }
+
+
+
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+        public TextView textViewHead, textViewDesc;
+
+        public ViewHolder(View itemView){
+            super(itemView);
+
+            textViewHead = (TextView) itemView.findViewById(R.id.textViewHead);
+            textViewDesc = (TextView) itemView.findViewById(R.id.textViewDesc);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            //listener.onClick(v, getBindingAdapterPosition());
+        }
+    }
 
 }
